@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.ms_usuario.dto.UsuarioDTO;
 import com.example.ms_usuario.service.UsuarioService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,12 +25,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @RequestMapping("/api/usuarios")
+@Tag(name = "Usuarios", description = "Operaciones relacionadas con los usuarios")
 @RequiredArgsConstructor
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
 
     @PostMapping
+    @Operation(summary = "Crear nuevos usuarios", description = "Crea nuevos usuarios")
     public ResponseEntity<UsuarioDTO.Response> crear(
             @Valid @RequestBody UsuarioDTO.Request request) {
 
@@ -40,6 +44,7 @@ public class UsuarioController {
     }
 
     @GetMapping
+    @Operation(summary = "Obtener todos los usuarios", description = "Obtiene todos los usuarios disponibles")
     public ResponseEntity<List<UsuarioDTO.Response>> listarTodos() {
 
         log.debug("GET /api/usuarios");
@@ -48,6 +53,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Obtener usuarios por id", description = "Obtiene usurios por una id especifica")
     public ResponseEntity<UsuarioDTO.Response> buscarPorId(
             @PathVariable Long id) {
 
@@ -57,6 +63,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Actualizar usuarios", description = "Actualiza los usuarios")
     public ResponseEntity<UsuarioDTO.Response> actualizar(
             @PathVariable Long id,
             @Valid @RequestBody UsuarioDTO.Request request) {
@@ -67,6 +74,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}/activar")
+    @Operation(summary = "Activar usuarios", description = "Activa nuevos o viejos usuarios")
     public ResponseEntity<UsuarioDTO.Response> activar(
             @PathVariable Long id) {
 
@@ -76,6 +84,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}/desactivar")
+    @Operation(summary = "Desactivar usuarios", description = "Desactiva nuevos o viejos usuarios")
     public ResponseEntity<UsuarioDTO.Response> desactivar(
             @PathVariable Long id) {
 
@@ -85,6 +94,7 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Eliminar usuarios", description = "Elimina usuarios")
     public ResponseEntity<Void> eliminar(
             @PathVariable Long id) {
 

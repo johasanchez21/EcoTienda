@@ -40,7 +40,6 @@ public class PermisoControllerV2 {
 
     @GetMapping("/{id}")
     @Operation(summary = "Obtener los permisos por id", description = "Obtiene un permiso en base a una id especifica")
-
     public ResponseEntity<PermisoDTO.Response> buscarPorId(@PathVariable Long id) {
         log.debug("GET /api/permisos{}", id);
         return ResponseEntity.ok(permisoService.buscarPorId(id));
