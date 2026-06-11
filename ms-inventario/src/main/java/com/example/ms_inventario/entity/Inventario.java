@@ -23,10 +23,10 @@ public class Inventario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @NotNull(message = "El cantidad es obligatorio")
-    @Positive(message = "El cantidad debe ser mayor a 0")
+    @NotNull(message = "El stock es obligatorio")
+    @Positive(message = "El stock debe ser mayor a 0")
     @Column(nullable = false)
-    private Integer cantidad;
+    private Integer stock;
 
     @Column(nullable = false)
     private Long productoId;

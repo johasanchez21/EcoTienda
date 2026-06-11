@@ -15,7 +15,7 @@
                 <constraints primaryKey="true"/>
             </column>
 
-            <column name="cantidad" type="INT">
+            <column name="stock" type="INT">
                 <constraints nullable="false"/>
             </column>
 

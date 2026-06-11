@@ -13,10 +13,10 @@ public class InventarioDTO {
     @AllArgsConstructor
     public static class Request{
 
-        @NotNull(message = "La cantidad es obligatoria")
-        @Positive(message = "La cantidad debe ser mayor a 0")
+        @NotNull(message = "El stock es obligatorio")
+        @Positive(message = "El stock debe ser mayor a 0")
         @Column(nullable = false)
-        private Integer cantidad;
+        private Integer stock;
         
         @NotNull(message = "La id del producto es obligatoria")
         private Long productoId;
@@ -30,7 +30,7 @@ public class InventarioDTO {
     @AllArgsConstructor
     public static class Response {
         private Long id;
-        private Integer cantidad;
+        private Integer stock;
         private ProductoDTO producto;
         private TiendaDTO tienda;
     }

@@ -35,7 +35,6 @@ public class ProductoServiceImpl implements ProductoService {
         producto.setNombre(request.getNombre());
         producto.setDescripcion(request.getDescripcion());
         producto.setPrecio(request.getPrecio());
-        producto.setStock(request.getStock());
         producto.setActivo(request.getActivo() != null ? request.getActivo() : true);
         producto.setCategoriaId(request.getCategoriaId());
 
@@ -105,7 +104,6 @@ public class ProductoServiceImpl implements ProductoService {
         producto.setNombre(request.getNombre());
         producto.setDescripcion(request.getDescripcion());
         producto.setPrecio(request.getPrecio());
-        producto.setStock(request.getStock());
         producto.setActivo(request.getActivo() != null ? request.getActivo() : producto.getActivo());
         producto.setCategoriaId(request.getCategoriaId());
 
@@ -159,7 +157,6 @@ public class ProductoServiceImpl implements ProductoService {
                 producto.getNombre(),
                 producto.getDescripcion(),
                 producto.getPrecio(),
-                producto.getStock(),
                 producto.getActivo(),
                 categoria
         );

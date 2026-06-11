@@ -27,10 +27,6 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="stock" type="INT">
-                <constraints nullable="false"/>
-            </column>
-
             <column name="activo" type="BOOLEAN" defaultValueBoolean="true">
                 <constraints nullable="false"/>
             </column>

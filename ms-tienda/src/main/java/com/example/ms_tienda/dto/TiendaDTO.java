@@ -30,7 +30,7 @@ public class TiendaDTO {
     public static class Response {
         private Long id;
         private String nombre;
-        private String dirreccion;
+        private String direccion;
         private String ciudad;
         private String horario;
     }

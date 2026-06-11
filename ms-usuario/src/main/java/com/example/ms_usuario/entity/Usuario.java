@@ -1,5 +1,6 @@
 package com.example.ms_usuario.entity;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,11 +29,13 @@ public class Usuario {
     @NotBlank(message = "El RUT es obligatorio")
     @Size(min = 10, max = 12, message = "El RUT debe tener entre 10 y 12 caracteres")
     @Column(nullable = false, unique = true, length = 12)
+    @Schema(example = "12345678-9")
     private String rut;
 
     @NotBlank(message = "El nombre es obligatorio")
     @Pattern(regexp = "^[\\w\\sáéíóúÁÉÍÓÚñÑ]{2,}\\s+[\\w\\sáéíóúÁÉÍÓÚñÑ]{2,}.*$",
              message = "El nombre debe contener al menos 2 palabras")
+    @Schema(example = "Peter Parker")
     @Column(nullable = false, length = 100)
     private String nombre;
 
