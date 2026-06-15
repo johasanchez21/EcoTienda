@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.ms_envio.dto.EnvioDTO;
 import com.example.ms_envio.service.EnvioService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,12 +26,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @RequestMapping("/api/envios")
+@Tag(name = "Envios", description = "Operaciones relacionadas con los envios")
 @RequiredArgsConstructor
 public class EnvioController {
 
     private final EnvioService envioService;
 
     @PostMapping
+    @Operation(summary = "Crear nuevos Envios", description = "Crea nuevos Envios")
     public ResponseEntity<EnvioDTO.Response> crear(
             @Valid @RequestBody EnvioDTO.Request request) {
 
@@ -41,16 +45,19 @@ public class EnvioController {
     }
 
     @GetMapping
+    @Operation(summary = "Obtener todos los envios", description = "Obtiene todos los envios")
     public ResponseEntity<List<EnvioDTO.Response>> listarTodos() {
         return ResponseEntity.ok(envioService.listarTodos());
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Obtener envio por id", description = "Obtiene un envio por id especifica")
     public ResponseEntity<EnvioDTO.Response> buscarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(envioService.buscarPorId(id));
     }
 
     @GetMapping("/pedidos/{pedidoId}")
+    @Operation(summary = "Obtener por pedido", description = "Obtiene un envio por una id especifica de pedido")
     public ResponseEntity<List<EnvioDTO.Response>> buscarPorPedido(
             @PathVariable Long pedidoId) {
 
@@ -58,6 +65,7 @@ public class EnvioController {
     }
 
     @GetMapping("/estado/{estado}")
+    @Operation(summary = "Obtener por estado", description = "Obtiene un envio por una id especifica de estado")
     public ResponseEntity<List<EnvioDTO.Response>> buscarPorEstado(
             @PathVariable String estado) {
 
@@ -65,6 +73,7 @@ public class EnvioController {
     }
 
     @PutMapping("/{id}/estado")
+    @Operation(summary = "Actualizar estado", description = "Actualiza el estado del envio")
     public ResponseEntity<EnvioDTO.Response> actualizarEstado(
             @PathVariable Long id,
             @RequestParam String estado) {
@@ -73,6 +82,7 @@ public class EnvioController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Eliminar envios", description = "Elimina envios")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
 
         envioService.eliminar(id);
