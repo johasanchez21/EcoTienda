@@ -40,19 +40,19 @@ public class RolServiceImplTest {
         
         RolDTO.Request request = new RolDTO.Request();
 
-        request.setNombre("ADMIN");
+        request.setNombre("Admin");
         request.setPermisoId(1L);
 
         PermisoDTO permiso = new PermisoDTO();
         permiso.setId(1L);
-        permiso.setNombre("CREAR_USUARIO");
+        permiso.setNombre("Permisos admin");
 
         Rol rolGuardado = new Rol();
         rolGuardado.setId(1L);
-        rolGuardado.setNombre("ADMIN");
+        rolGuardado.setNombre("Admin");
         rolGuardado.setPermisoId(1L);
 
-        when(rolRepository.existsByNombreIgnoreCase("ADMIN"))
+        when(rolRepository.existsByNombreIgnoreCase("Admin"))
             .thenReturn(false);
             when(permisoClient.buscarPorId(1L))
                 .thenReturn(permiso);
@@ -64,7 +64,7 @@ public class RolServiceImplTest {
 
                 assertNotNull(response);
                 assertEquals(1L, response.getId());
-                assertEquals("ADMIN", response.getNombre());
+                assertEquals("Admin", response.getNombre());
 
                 verify(permisoClient).buscarPorId(1L);
 
@@ -77,10 +77,10 @@ public class RolServiceImplTest {
 
         RolDTO.Request request = new RolDTO.Request();
 
-        request.setNombre("ADMIN");
+        request.setNombre("Admin");
         request.setPermisoId(1L);
 
-        when(rolRepository.existsByNombreIgnoreCase("ADMIN"))
+        when(rolRepository.existsByNombreIgnoreCase("Admin"))
             .thenReturn(true);
             
             RuntimeException exception = assertThrows(RuntimeException.class,() -> rolService.crear(request));
@@ -96,12 +96,12 @@ public class RolServiceImplTest {
 
         Rol rol = new Rol();
         rol.setId(1L);
-        rol.setNombre("ADMIN");
+        rol.setNombre("Admin");
         rol.setPermisoId(1L);
 
         PermisoDTO permiso = new PermisoDTO();
         permiso.setId(1L);
-        permiso.setNombre("CREAR_USUARIO");
+        permiso.setNombre("Permisos admin");
 
         when(rolRepository.findById(1L))
             .thenReturn(Optional.of(rol));
@@ -112,7 +112,7 @@ public class RolServiceImplTest {
         RolDTO.Response response = rolService.buscarPorId(1L);
 
         assertNotNull(response);
-        assertEquals("ADMIN", response.getNombre());
+        assertEquals("Admin", response.getNombre());
 
         verify(rolRepository).findById(1L);
     }
@@ -123,7 +123,7 @@ public class RolServiceImplTest {
 
         Rol rol = new Rol();
         rol.setId(1L);
-        rol.setNombre("ADMIN");
+        rol.setNombre("Admin");
 
         when(rolRepository.findById(1L))
             .thenReturn(Optional.of(rol));
