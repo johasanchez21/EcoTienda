@@ -123,7 +123,8 @@ public class CarritoItemServiceImplTest {
     }
 
     @Test
-    void agregarProducto_LanzarError_CarritoNoExiste() {
+    void
+    agregarProducto_LanzarError_CarritoNoExiste() {
 
         when(carritoRepository.findById(99L))
                 .thenReturn(Optional.empty());
@@ -140,7 +141,8 @@ public class CarritoItemServiceImplTest {
     }
 
     @Test
-    void obtenerItemsCarrito_RetornarLista() {
+    void
+    obtenerItemsCarrito_RetornarLista() {
 
         CarritoItem item1 = new CarritoItem();
         item1.setId(1L);
@@ -184,7 +186,8 @@ public class CarritoItemServiceImplTest {
     }
 
     @Test
-    void actualizarCantidad_ActualizarCantidad() {
+    void
+    actualizarCantidad_ActualizarCantidad() {
 
         CarritoItem item = new CarritoItem();
         item.setId(1L);
@@ -216,7 +219,8 @@ public class CarritoItemServiceImplTest {
     }
 
     @Test
-    void eliminarItem_EliminarItem() {
+    void
+    eliminarItem_EliminarItem() {
 
         CarritoItem item = new CarritoItem();
         item.setId(1L);

@@ -103,7 +103,8 @@ public class TiendaServiceImplTest {
     }
 
     @Test
-    void buscarPorId_DeberiaRetornarTienda() {
+    void
+    buscarPorId_RetornarTienda() {
 
         Tienda tienda = new Tienda();
 
@@ -128,7 +129,8 @@ public class TiendaServiceImplTest {
     }
 
     @Test
-    void listarTodas_DeberiaRetornarLista() {
+    void
+    listarTodas_RetornarLista() {
 
         Tienda tienda1 = new Tienda();
         tienda1.setId(1L);
