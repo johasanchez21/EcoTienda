@@ -1,0 +1,169 @@
+version: "3.8"
+
+services:
+
+  eureka-server:
+    image: eureka-server
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+
+  api-gateway:
+    image: api-gateway
+    container_name: api-gateway
+    ports:
+      - "8080:8080"
+    environment:
+      EUREKA_URL: http://eureka-server:8761/eureka/
+    depends_on:
+      - eureka-server
+
+  ms-permiso:
+    image: ms-permiso
+    container_name: ms-permiso
+    ports:
+      - "8081:8081"
+    environment:
+      DB_URL: jdbc:mysql://host.docker.internal:3306/db_ecotienda
+      DB_USERNAME: root
+      DB_PASSWORD: ""
+      EUREKA_URL: http://eureka-server:8761/eureka/
+    depends_on:
+      - eureka-server
+
+  ms-rol:
+    image: ms-rol
+    container_name: ms-rol
+    ports:
+      - "8082:8082"
+    environment:
+      DB_URL: jdbc:mysql://host.docker.internal:3306/db_ecotienda
+      DB_USERNAME: root
+      DB_PASSWORD: ""
+      EUREKA_URL: http://eureka-server:8761/eureka/
+      MS_PERMISO_URL: http://ms-permiso:8081
+    depends_on:
+      - eureka-server
+      - ms-permiso
+
+  ms-usuario:
+    image: ms-usuario
+    container_name: ms-usuario
+    ports:
+      - "8083:8083"
+    environment:
+      DB_URL: jdbc:mysql://host.docker.internal:3306/db_ecotienda
+      DB_USERNAME: root
+      DB_PASSWORD: ""
+      EUREKA_URL: http://eureka-server:8761/eureka/
+      MS_ROL_URL: http://ms-rol:8082
+    depends_on:
+      - eureka-server
+      - ms-rol
+
+  ms-tienda:
+    image: ms-tienda
+    container_name: ms-tienda
+    ports:
+      - "8084:8084"
+    environment:
+      DB_URL: jdbc:mysql://host.docker.internal:3306/db_ecotienda
+      DB_USERNAME: root
+      DB_PASSWORD: ""
+      EUREKA_URL: http://eureka-server:8761/eureka/
+    depends_on:
+      - eureka-server
+
+  ms-categoria:
+    image: ms-categoria
+    container_name: ms-categoria
+    ports:
+      - "8085:8085"
+    environment:
+      DB_URL: jdbc:mysql://host.docker.internal:3306/db_ecotienda
+      DB_USERNAME: root
+      DB_PASSWORD: ""
+      EUREKA_URL: http://eureka-server:8761/eureka/
+    depends_on:
+      - eureka-server
+
+  ms-producto:
+    image: ms-producto
+    container_name: ms-producto
+    ports:
+      - "8086:8086"
+    environment:
+      DB_URL: jdbc:mysql://host.docker.internal:3306/db_ecotienda
+      DB_USERNAME: root
+      DB_PASSWORD: ""
+      EUREKA_URL: http://eureka-server:8761/eureka/
+      MS_CATEGORIA_URL: http://ms-categoria:8085
+    depends_on:
+      - eureka-server
+      - ms-categoria
+
+  ms-inventario:
+    image: ms-inventario
+    container_name: ms-inventario
+    ports:
+      - "8087:8087"
+    environment:
+      DB_URL: jdbc:mysql://host.docker.internal:3306/db_ecotienda
+      DB_USERNAME: root
+      DB_PASSWORD: ""
+      EUREKA_URL: http://eureka-server:8761/eureka/
+      MS_PRODUCTO_URL: http://ms-producto:8086
+      MS_TIENDA_URL: http://ms-tienda:8084
+    depends_on:
+      - eureka-server
+      - ms-producto
+      - ms-tienda
+
+  ms-carrito:
+    image: ms-carrito
+    container_name: ms-carrito
+    ports:
+      - "8088:8088"
+    environment:
+      DB_URL: jdbc:mysql://host.docker.internal:3306/db_ecotienda
+      DB_USERNAME: root
+      DB_PASSWORD: ""
+      EUREKA_URL: http://eureka-server:8761/eureka/
+      MS_USUARIO_URL: http://ms-usuario:8083
+      MS_PRODUCTO_URL: http://ms-producto:8086
+    depends_on:
+      - eureka-server
+      - ms-usuario
+      - ms-producto
+
+  ms-pedido:
+    image: ms-pedido
+    container_name: ms-pedido
+    ports:
+      - "8089:8089"
+    environment:
+      DB_URL: jdbc:mysql://host.docker.internal:3306/db_ecotienda
+      DB_USERNAME: root
+      DB_PASSWORD: ""
+      EUREKA_URL: http://eureka-server:8761/eureka/
+      MS_USUARIO_URL: http://ms-usuario:8083
+      MS_PRODUCTO_URL: http://ms-producto:8086
+    depends_on:
+      - eureka-server
+      - ms-usuario
+      - ms-producto
+
+  ms-envio:
+    image: ms-envio
+    container_name: ms-envio
+    ports:
+      - "8090:8090"
+    environment:
+      DB_URL: jdbc:mysql://host.docker.internal:3306/db_ecotienda
+      DB_USERNAME: root
+      DB_PASSWORD: ""
+      EUREKA_URL: http://eureka-server:8761/eureka/
+      MS_PEDIDO_URL: http://ms-pedido:8089
+    depends_on:
+      - eureka-server
+      - ms-pedido
