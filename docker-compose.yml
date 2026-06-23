@@ -3,12 +3,14 @@ version: "3.8"
 services:
 
   eureka-server:
+    build: ./eureka-server
     image: eureka-server
     container_name: eureka-server
     ports:
       - "8761:8761"
 
   api-gateway:
+    build: ./api-gateway
     image: api-gateway
     container_name: api-gateway
     ports:
@@ -19,6 +21,7 @@ services:
       - eureka-server
 
   ms-permiso:
+    build: ./ms-permiso
     image: ms-permiso
     container_name: ms-permiso
     ports:
@@ -32,6 +35,7 @@ services:
       - eureka-server
 
   ms-rol:
+    build: ./ms-rol
     image: ms-rol
     container_name: ms-rol
     ports:
@@ -47,6 +51,7 @@ services:
       - ms-permiso
 
   ms-usuario:
+    build: ./ms-usuario
     image: ms-usuario
     container_name: ms-usuario
     ports:
@@ -62,6 +67,7 @@ services:
       - ms-rol
 
   ms-tienda:
+    build: ./ms-tienda
     image: ms-tienda
     container_name: ms-tienda
     ports:
@@ -75,6 +81,7 @@ services:
       - eureka-server
 
   ms-categoria:
+    build: ./ms-categoria
     image: ms-categoria
     container_name: ms-categoria
     ports:
@@ -88,6 +95,7 @@ services:
       - eureka-server
 
   ms-producto:
+    build: ./ms-producto
     image: ms-producto
     container_name: ms-producto
     ports:
@@ -103,6 +111,7 @@ services:
       - ms-categoria
 
   ms-inventario:
+    build: ./ms-inventario
     image: ms-inventario
     container_name: ms-inventario
     ports:
@@ -120,6 +129,7 @@ services:
       - ms-tienda
 
   ms-carrito:
+    build: ./ms-carrito
     image: ms-carrito
     container_name: ms-carrito
     ports:
@@ -137,6 +147,7 @@ services:
       - ms-producto
 
   ms-pedido:
+    build: ./ms-pedido
     image: ms-pedido
     container_name: ms-pedido
     ports:
@@ -154,6 +165,7 @@ services:
       - ms-producto
 
   ms-envio:
+    build: ./ms-envio
     image: ms-envio
     container_name: ms-envio
     ports:
