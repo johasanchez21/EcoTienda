@@ -63,8 +63,11 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: ${EUREKA_URL:http://host.docker.internal:8761/eureka/}
-  instance:
-    prefer-ip-address: true
+      defaultZone: ${EUREKA_URL:http://eureka-server:8761/eureka/}
 
-    
+  instance:
+    hostname: api-gateway
+    prefer-ip-address: false
+    non-secure-port: 8080
+    status-page-url: http://localhost:8080/api/permisos
+    home-page-url: http://localhost:8080/api/permisos
