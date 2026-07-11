@@ -1,0 +1,73 @@
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: ms-permiso
+              uri: lb://ms-permiso
+              predicates:
+                - Path=/api/permisos/**
+
+            - id: ms-rol
+              uri: lb://ms-rol
+              predicates:
+                - Path=/api/roles/**
+
+            - id: ms-usuario
+              uri: lb://ms-usuario
+              predicates:
+                - Path=/api/usuarios/**
+
+            - id: ms-tienda
+              uri: lb://ms-tienda
+              predicates:
+                - Path=/api/tiendas/**
+
+            - id: ms-categoria
+              uri: lb://ms-categoria
+              predicates:
+                - Path=/api/categorias/**
+
+            - id: ms-producto
+              uri: lb://ms-producto
+              predicates:
+                - Path=/api/productos/**
+
+            - id: ms-inventario
+              uri: lb://ms-inventario
+              predicates:
+                - Path=/api/inventarios/**
+
+            - id: ms-carrito
+              uri: lb://ms-carrito
+              predicates:
+                - Path=/api/carritos/**,/api/carrito-items/**
+
+            - id: ms-pedido
+              uri: lb://ms-pedido
+              predicates:
+                - Path=/api/pedidos/**
+
+            - id: ms-envio
+              uri: lb://ms-envio
+              predicates:
+                - Path=/api/envios/**
+
+server:
+  port: 8080
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL:http://eureka-server:8761/eureka/}
+
+  instance:
+    hostname: api-gateway
+    prefer-ip-address: false
+    non-secure-port: 8080
+    status-page-url: http://localhost:8080/api/permisos
+    home-page-url: http://localhost:8080/api/permisos

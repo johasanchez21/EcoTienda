@@ -36,11 +36,6 @@ public class Producto {
     @Column(nullable = false)
     private Integer precio;
 
-    @NotNull(message = "El stock es obligatorio")
-    @Positive(message = "El stock debe ser mayor a 0")
-    @Column(nullable = false)
-    private Integer stock;
-
     @Column(nullable = false)
     private Boolean activo = true;
 

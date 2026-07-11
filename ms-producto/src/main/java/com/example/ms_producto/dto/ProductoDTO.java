@@ -27,11 +27,6 @@ public class ProductoDTO {
     @Positive(message = "El precio debe ser mayor a 0")
     @Column(nullable = false)
     private Integer precio;
-
-    @NotNull(message = "El stock es obligatorio")
-    @Positive(message = "El stock debe ser mayor a 0")
-    @Column(nullable = false)
-    private Integer stock;
     
     private Boolean activo;
 
@@ -48,7 +43,6 @@ public class ProductoDTO {
         private String nombre;
         private String descripcion;
         private Integer precio;
-        private Integer stock;
         private Boolean activo;
         private CategoriaDTO categoria;
     }

@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.ms_inventario.dto.InventarioDTO;
 import com.example.ms_inventario.service.InventarioService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,12 +26,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @RequestMapping("/api/inventarios")
+@Tag(name = "Inventario", description = "Operaciones relacionadas con los productos")
 @RequiredArgsConstructor
 public class InventarioController {
 
     private final InventarioService inventarioService;
 
     @PostMapping
+    @Operation(summary = "Crear Inventario", description = "Crea nuevos Inventarios de productos")
     public ResponseEntity<InventarioDTO.Response> crear(
             @Valid @RequestBody InventarioDTO.Request request) {
 
@@ -41,34 +45,37 @@ public class InventarioController {
     }
 
     @PutMapping("/productos/{productoId}/tiendas/{tiendaId}/agregar-stock")
+    @Operation(summary = "Agregar Stock", description = "Agrega nuevo stock disponible")
     public ResponseEntity<InventarioDTO.Response> agregarStock(
             @PathVariable Long productoId,
             @PathVariable Long tiendaId,
-            @RequestParam Integer cantidad) {
+            @RequestParam Integer stock) {
 
-        log.debug("PUT /api/inventarios/productos/{}/tiendas/{}/agregar-stock?cantidad={}",
-                productoId, tiendaId, cantidad);
+        log.debug("PUT /api/inventarios/productos/{}/tiendas/{}/agregar-stock?stock={}",
+                productoId, tiendaId, stock);
 
         return ResponseEntity.ok(
-                inventarioService.agregarStock(productoId, tiendaId, cantidad)
+                inventarioService.agregarStock(productoId, tiendaId, stock)
         );
     }
 
     @PutMapping("/productos/{productoId}/tiendas/{tiendaId}/reducir-stock")
+    @Operation(summary = "Reducir Stock", description = "Reduce el stock disponible")
     public ResponseEntity<InventarioDTO.Response> reducirStock(
             @PathVariable Long productoId,
             @PathVariable Long tiendaId,
-            @RequestParam Integer cantidad) {
+            @RequestParam Integer stock) {
 
-        log.debug("PUT /api/inventarios/productos/{}/tiendas/{}/reducir-stock?cantidad={}",
-                productoId, tiendaId, cantidad);
+        log.debug("PUT /api/inventarios/productos/{}/tiendas/{}/reducir-stock?stock={}",
+                productoId, tiendaId, stock);
 
         return ResponseEntity.ok(
-                inventarioService.reducirStock(productoId, tiendaId, cantidad)
+                inventarioService.reducirStock(productoId, tiendaId, stock)
         );
     }
 
     @GetMapping("/productos/{productoId}/tiendas/{tiendaId}")
+    @Operation(summary = "Consultar Stock", description = "Consulta el stock disponible")
     public ResponseEntity<InventarioDTO.Response> consultarStock(
             @PathVariable Long productoId,
             @PathVariable Long tiendaId) {
@@ -82,6 +89,7 @@ public class InventarioController {
     }
 
     @GetMapping("/tiendas/{tiendaId}")
+    @Operation(summary = "Obtener productos de tienda", description = "Obtiene productos por id de tiendas")
     public ResponseEntity<List<InventarioDTO.Response>> obtenerInventarioPorTienda(
             @PathVariable Long tiendaId) {
 
@@ -92,20 +100,8 @@ public class InventarioController {
         );
     }
 
-    @PutMapping("/{inventarioId}/cantidad")
-    public ResponseEntity<InventarioDTO.Response> actualizarCantidad(
-            @PathVariable Long inventarioId,
-            @RequestParam Integer cantidad) {
-
-        log.debug("PUT /api/inventarios/{}/cantidad?cantidad={}",
-                inventarioId, cantidad);
-
-        return ResponseEntity.ok(
-                inventarioService.actualizarCantidad(inventarioId, cantidad)
-        );
-    }
-
     @DeleteMapping("/{id}")
+    @Operation(summary = "Eliminar inventario", description = "Elimina el inventario")
     public ResponseEntity<Void> eliminar(
             @PathVariable Long id) {
 

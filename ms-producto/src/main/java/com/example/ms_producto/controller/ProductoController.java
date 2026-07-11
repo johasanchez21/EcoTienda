@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import com.example.ms_producto.dto.ProductoDTO;
 import com.example.ms_producto.service.ProductoService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,12 +18,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @RequestMapping("/api/productos")
+@Tag(name = "Productos", description = "Operaciones relacionadas con los productos")
 @RequiredArgsConstructor
 public class ProductoController {
 
     private final ProductoService productoService;
 
     @PostMapping
+    @Operation(summary = "Crear Productos", description = "Crea nuevos productos")
     public ResponseEntity<ProductoDTO.Response> crear(
             @Valid @RequestBody ProductoDTO.Request request) {
 
@@ -33,6 +37,7 @@ public class ProductoController {
     }
 
     @GetMapping
+    @Operation(summary = "Obtener Productos", description = "Obtiene todos los productos disponibles")
     public ResponseEntity<List<ProductoDTO.Response>> listarTodos() {
 
         log.debug("GET /api/productos");
@@ -41,6 +46,7 @@ public class ProductoController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Obtener Productos por id", description = "Obtiene un producto por una id especifica")
     public ResponseEntity<ProductoDTO.Response> buscarPorId(
             @PathVariable Long id) {
 
@@ -50,6 +56,7 @@ public class ProductoController {
     }
 
     @GetMapping("/categoria/{categoriaId}")
+    @Operation(summary = "Obtener Productos por id de categoria", description = "Obtiene un producto por una id especifica de la categroia")
     public ResponseEntity<List<ProductoDTO.Response>> buscarPorCategoria(
             @PathVariable Long categoriaId) {
 
@@ -61,6 +68,7 @@ public class ProductoController {
     }
 
     @GetMapping("/activos")
+    @Operation(summary = "Obtener Productos activos", description = "Obtiene productos disponibles")
     public ResponseEntity<List<ProductoDTO.Response>> buscarActivos() {
 
         log.debug("GET /api/productos/activos");
@@ -69,6 +77,7 @@ public class ProductoController {
     }
 
     @GetMapping("/buscar")
+    @Operation(summary = "Obtener Nombres de productos", description = "Obtiene productos por su nombre")
     public ResponseEntity<List<ProductoDTO.Response>> buscarPorNombre(
             @RequestParam String nombre) {
 
@@ -80,6 +89,7 @@ public class ProductoController {
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Actualizar productos", description = "Actualiza los productos")
     public ResponseEntity<ProductoDTO.Response> actualizar(
             @PathVariable Long id,
             @Valid @RequestBody ProductoDTO.Request request) {
@@ -92,6 +102,7 @@ public class ProductoController {
     }
 
     @PutMapping("/{id}/activar")
+    @Operation(summary = "Activar productos", description = "Activa los productos disponibles")
     public ResponseEntity<ProductoDTO.Response> activar(
             @PathVariable Long id) {
 
@@ -101,6 +112,7 @@ public class ProductoController {
     }
 
     @PutMapping("/{id}/desactivar")
+    @Operation(summary = "Desactivar productos", description = "Desactiva los productos para que no esten disponibles")
     public ResponseEntity<ProductoDTO.Response> desactivar(
             @PathVariable Long id) {
 
@@ -110,6 +122,7 @@ public class ProductoController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Eliminar productos", description = "Elimina los productos")
     public ResponseEntity<Void> eliminar(
             @PathVariable Long id) {
 

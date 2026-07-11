@@ -1,5 +1,6 @@
 package com.example.ms_usuario.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -17,11 +18,13 @@ public class UsuarioDTO {
 
         @NotBlank(message = "El RUT es obligatorio")
         @Size(min = 10, max = 12, message = "El RUT debe tener entre 10 y 12 caracteres")
+        @Schema(example = "12345678-9")
         private String rut;
 
         @NotBlank(message = "El nombre es obligatorio")
         @Pattern(regexp = "^[\\w\\sáéíóúÁÉÍÓÚñÑ]{2,}\\s+[\\w\\sáéíóúÁÉÍÓÚñÑ]{2,}.*$",
                  message = "El nombre debe contener al menos 2 palabras")
+        @Schema(example = "Peter Parker")
         private String nombre;
 
         @NotBlank(message = "El email es obligatorio")

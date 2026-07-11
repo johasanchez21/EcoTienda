@@ -44,7 +44,7 @@ public class InventarioServiceImpl implements InventarioService {
         Inventario inventario = new Inventario();
         inventario.setProductoId(request.getProductoId());
         inventario.setTiendaId(request.getTiendaId());
-        inventario.setCantidad(request.getCantidad());
+        inventario.setStock(request.getStock());
 
         Inventario guardado = inventarioRepository.save(inventario);
 
@@ -52,29 +52,29 @@ public class InventarioServiceImpl implements InventarioService {
     }
 
     @Override
-    public InventarioDTO.Response agregarStock(Long productoId, Long tiendaId, Integer cantidad) {
+    public InventarioDTO.Response agregarStock(Long productoId, Long tiendaId, Integer stock) {
 
         Inventario inventario = inventarioRepository
                 .findByProductoIdAndTiendaId(productoId, tiendaId)
                 .orElseThrow(() -> new RuntimeException("Inventario no encontrado"));
 
-        inventario.setCantidad(inventario.getCantidad() + cantidad);
+        inventario.setStock(inventario.getStock() + stock);
 
         return mapToResponse(inventarioRepository.save(inventario));
     }
 
     @Override
-    public InventarioDTO.Response reducirStock(Long productoId, Long tiendaId, Integer cantidad) {
+    public InventarioDTO.Response reducirStock(Long productoId, Long tiendaId, Integer stock) {
 
         Inventario inventario = inventarioRepository
                 .findByProductoIdAndTiendaId(productoId, tiendaId)
                 .orElseThrow(() -> new RuntimeException("Inventario no encontrado"));
 
-        if (inventario.getCantidad() < cantidad) {
+        if (inventario.getStock() < stock) {
             throw new RuntimeException("Stock insuficiente");
         }
 
-        inventario.setCantidad(inventario.getCantidad() - cantidad);
+        inventario.setStock(inventario.getStock() - stock);
 
         return mapToResponse(inventarioRepository.save(inventario));
     }
@@ -101,17 +101,6 @@ public class InventarioServiceImpl implements InventarioService {
     }
 
     @Override
-    public InventarioDTO.Response actualizarCantidad(Long inventarioId, Integer cantidad) {
-
-        Inventario inventario = inventarioRepository.findById(inventarioId)
-                .orElseThrow(() -> new RuntimeException("Inventario no encontrado"));
-
-        inventario.setCantidad(cantidad);
-
-        return mapToResponse(inventarioRepository.save(inventario));
-    }
-
-    @Override
     public void eliminar(Long id) {
 
         Inventario inventario = inventarioRepository.findById(id)
@@ -135,7 +124,7 @@ public class InventarioServiceImpl implements InventarioService {
 
         return new InventarioDTO.Response(
                 inventario.getId(),
-                inventario.getCantidad(),
+                inventario.getStock(),
                 producto,
                 tienda
         );

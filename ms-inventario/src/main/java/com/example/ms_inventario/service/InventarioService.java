@@ -8,15 +8,13 @@ public interface InventarioService {
 
     InventarioDTO.Response crear(InventarioDTO.Request request);
 
-    InventarioDTO.Response agregarStock(Long productoId, Long tiendaId, Integer cantidad);
+    InventarioDTO.Response agregarStock(Long productoId, Long tiendaId, Integer stock);
 
     InventarioDTO.Response reducirStock(Long productoId, Long tiendaId, Integer cantidad);
 
     InventarioDTO.Response consultarStock(Long productoId, Long tiendaId);
 
     List<InventarioDTO.Response> obtenerInventarioPorTienda(Long tiendaId);
-
-    InventarioDTO.Response actualizarCantidad(Long inventarioId, Integer cantidad);
-
+    
     void eliminar(Long id);
 }
